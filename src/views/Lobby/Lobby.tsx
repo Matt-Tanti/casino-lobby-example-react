@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
-import defaultGames from "../../constants/games.json";
 import { GamesContext } from "../../contexts/gamesContext";
 import { Game, Styles } from "../../types/modelTypes";
+import Loading from "../Common/Loading";
 import Logo from "../Common/Logo";
 import SearchBar from "../Common/SearchBar";
 import GameThumbnail from "../Games/GameThumbnail";
@@ -45,26 +45,24 @@ const DivWithMedia = styled.div`
 `;
 
 const Lobby = () => {
-  const { filteredGames, setGames } = useContext(GamesContext);
-
-  useEffect(() => {
-    if (!defaultGames) return;
-
-    setGames(defaultGames);
-  }, []);
+  const { filteredGames } = useContext(GamesContext);
 
   return (
-    <div style={styles.container}>
+    <div className="container" style={styles.container}>
       <div style={styles.header}>
         <Logo />
         <SearchBar />
       </div>
-      <DivWithMedia style={styles.content}>
-        {filteredGames &&
-          Object.values(filteredGames).map((filteredGame: Game) => (
-            <GameThumbnail game={filteredGame} />
+
+      {filteredGames ? (
+        <DivWithMedia style={styles.content}>
+          {Object.values(filteredGames).map((filteredGame: Game) => (
+            <GameThumbnail key={filteredGame.id} game={filteredGame} />
           ))}
-      </DivWithMedia>
+        </DivWithMedia>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 };
