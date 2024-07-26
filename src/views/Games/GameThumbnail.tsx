@@ -34,7 +34,7 @@ const GameThumbnail = ({ game }: GameThumbnailProps) => {
 
   // On click navigate to game overview
   const handleClick = () => {
-    navigate(`game/${game.slug}`);
+    navigate(`/game/${game.slug}`);
   };
 
   return (
