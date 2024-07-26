@@ -13,6 +13,8 @@ const styles: Styles = {
 const Unknown = () => {
   const navigate = useNavigate();
 
+  // Handle back to lobby button click
+  // Navigate back to lobby
   const handleBackToLobby = () => {
     navigate("/");
   };
