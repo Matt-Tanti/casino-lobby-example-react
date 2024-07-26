@@ -1,4 +1,4 @@
-interface LobbyProps {}
+type LobbyProps = {};
 
 const Lobby = ({}: LobbyProps) => {
   return <></>;

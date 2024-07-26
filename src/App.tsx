@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Unknown from "./views/Common/Unknown";
-import Game from "./views/Games/Game";
+import GameOverview from "./views/Games/GameOverview";
 import Lobby from "./views/Lobby/Lobby";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
         <Route path="/403" element={<Unknown />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/" element={<Navigate to="/lobby" replace />} />
-        <Route path="/game/:gameId" element={<Game />} />
+        <Route path="/game/:gameId" element={<GameOverview />} />
       </Routes>
     </BrowserRouter>
   );

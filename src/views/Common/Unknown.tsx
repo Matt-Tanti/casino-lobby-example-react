@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-interface UnknownProps {}
+type UnknownProps = {};
 
 // Simple 403 page
 const Unknown = ({}: UnknownProps) => {
