@@ -1,6 +1,12 @@
+import { CSSProperties } from "react";
+
 export type Action = {
   type: string;
   payload?: any;
+};
+
+export type Styles = {
+  [key: string]: CSSProperties;
 };
 
 export type GameProvider = {
