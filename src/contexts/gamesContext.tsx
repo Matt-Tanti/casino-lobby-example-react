@@ -6,7 +6,8 @@ import {
   useReducer,
   useState,
 } from "react";
-import { Action, Games } from "../types/modelTypes";
+import defaultGamesJson from "../constants/games.json";
+import { Action, Game, Games } from "../types/modelTypes";
 import { SET_FILTERED_GAMES, SET_SEARCH_FILTER } from "../types/reducerTypes";
 
 type GamesContextState = {
@@ -15,15 +16,15 @@ type GamesContextState = {
 };
 
 type GamesContextInterface = GamesContextState & {
-  setGames: (games: Games) => void;
   setSearchFilter: (searchFilter: string) => void;
+  getGameBySlug: (slug?: string) => Game | null;
 };
 
 const initialState: GamesContextInterface = {
   filteredGames: null,
   searchFilter: null,
-  setGames: () => undefined,
   setSearchFilter: () => undefined,
+  getGameBySlug: () => null,
 };
 
 export const GamesContext = createContext<GamesContextInterface>(initialState);
@@ -54,6 +55,13 @@ export const GamesProvider = ({ children }: PropsWithChildren) => {
   // Internal variable to keep track of all the games
   const [defaultGames, setDefaultGames] = useState<Games | null>(null);
 
+  // Sets the default games
+  useEffect(() => {
+    if (!defaultGamesJson) return;
+
+    setDefaultGames(defaultGamesJson);
+  }, []);
+
   // On defaultGames/ searchFilter update
   // Update filteredGames
   useEffect(() => {
@@ -72,11 +80,6 @@ export const GamesProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  // Sets the default games
-  const setGames = (games: Games) => {
-    setDefaultGames(games);
-  };
-
   // Sets the search filter
   const setSearchFilter = (searchFilter: string) => {
     dispatch({
@@ -85,13 +88,20 @@ export const GamesProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
+  // Gets game details by slug
+  const getGameBySlug = (slug?: string) => {
+    if (!slug) return null;
+
+    return state.filteredGames?.[slug] ?? null;
+  };
+
   return (
     <GamesContext.Provider
       value={{
         filteredGames: state.filteredGames,
         searchFilter: state.searchFilter,
-        setGames,
         setSearchFilter,
+        getGameBySlug,
       }}
     >
       {children}
