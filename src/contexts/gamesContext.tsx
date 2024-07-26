@@ -57,8 +57,20 @@ export const GamesProvider = ({ children }: PropsWithChildren) => {
   // On defaultGames/ searchFilter update
   // Update filteredGames
   useEffect(() => {
-    //TODO
+    if (!defaultGames) return;
+
+    if (!state.searchFilter) setFilteredGames(defaultGames);
+
+    //TODO add filtering
   }, [defaultGames, state.searchFilter]);
+
+  // Sets the filtered games
+  const setFilteredGames = (filteredGames: Games) => {
+    dispatch({
+      type: SET_FILTERED_GAMES,
+      payload: filteredGames,
+    });
+  };
 
   // Sets the default games
   const setGames = (games: Games) => {

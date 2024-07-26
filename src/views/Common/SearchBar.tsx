@@ -1,4 +1,3 @@
-import React from "react";
 import { Styles } from "../../types/modelTypes";
 
 const styles: Styles = {
@@ -6,17 +5,17 @@ const styles: Styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "20px",
+    padding: "1.5rem",
   },
   input: {
     flex: 1,
-    padding: "10px",
+    padding: "0.8rem",
     borderRadius: "5px",
     border: "1px solid #ccc",
   },
 };
 
-const SearchBar: React.FC = () => {
+const SearchBar = () => {
   return (
     <div style={styles.container}>
       <input type="text" placeholder="Search..." style={styles.input} />
