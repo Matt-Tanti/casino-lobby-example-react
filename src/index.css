@@ -54,8 +54,57 @@ button:focus-visible {
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  width: 100%;
+  display: flex;
+}
+
+/* Base container style */
+.container {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  justify-content: center;
+  display: flex;
+}
+
+/* Small screens */
+@media (min-width: 640px) {
+  /* sm */
+  .container {
+    max-width: 640px;
+  }
+}
+
+/* Medium screens */
+@media (min-width: 768px) {
+  /* md */
+  .container {
+    max-width: 768px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  /* lg */
+  .container {
+    max-width: 1024px;
+  }
+}
+
+/* Extra-large screens */
+@media (min-width: 1280px) {
+  /* xl */
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Extra-extra-large screens */
+@media (min-width: 1536px) {
+  /* 2xl */
+  .container {
+    max-width: 1536px;
+  }
 }
