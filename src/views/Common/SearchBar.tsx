@@ -1,3 +1,5 @@
+import { ChangeEvent, useContext } from "react";
+import { GamesContext } from "../../contexts/gamesContext";
 import { Styles } from "../../types/modelTypes";
 
 const styles: Styles = {
@@ -16,9 +18,20 @@ const styles: Styles = {
 };
 
 const SearchBar = () => {
+  const { setSearchFilter } = useContext(GamesContext);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchFilter(event.target.value);
+  };
+
   return (
     <div style={styles.container}>
-      <input type="text" placeholder="Search..." style={styles.input} />
+      <input
+        type="text"
+        placeholder="Search..."
+        style={styles.input}
+        onChange={handleInputChange}
+      />
     </div>
   );
 };

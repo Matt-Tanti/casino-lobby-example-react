@@ -12,6 +12,7 @@ const styles: Styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "start",
   },
   header: {
     maxWidth: "300px",
@@ -56,7 +57,7 @@ const Lobby = () => {
 
       {filteredGames ? (
         <DivWithMedia style={styles.content}>
-          {Object.values(filteredGames).map((filteredGame: Game) => (
+          {filteredGames.map((filteredGame: Game) => (
             <GameThumbnail key={filteredGame.id} game={filteredGame} />
           ))}
         </DivWithMedia>

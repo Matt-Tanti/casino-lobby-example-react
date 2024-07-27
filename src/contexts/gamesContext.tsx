@@ -7,11 +7,12 @@ import {
   useState,
 } from "react";
 import defaultGamesJson from "../constants/games.json";
-import { Action, Game, Games } from "../types/modelTypes";
+import { Action, Game, GamesJson } from "../types/modelTypes";
 import { SET_FILTERED_GAMES, SET_SEARCH_FILTER } from "../types/reducerTypes";
+import { fuzzySearch } from "../utils/search";
 
 type GamesContextState = {
-  filteredGames: Games | null;
+  filteredGames: Game[] | null;
   searchFilter: string | null;
 };
 
@@ -53,7 +54,7 @@ export const GamesProvider = ({ children }: PropsWithChildren) => {
   );
 
   // Internal variable to keep track of all the games
-  const [defaultGames, setDefaultGames] = useState<Games | null>(null);
+  const [defaultGames, setDefaultGames] = useState<GamesJson | null>(null);
 
   // Sets the default games
   useEffect(() => {
@@ -67,13 +68,30 @@ export const GamesProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     if (!defaultGames) return;
 
-    if (!state.searchFilter) setFilteredGames(defaultGames);
+    const defaultGamesArray: Game[] = Object.values(defaultGames);
 
-    //TODO add filtering
+    if (!state.searchFilter) {
+      setFilteredGames(defaultGamesArray);
+      return;
+    }
+
+    // Lowercase search query to remove case sensitivity
+    const searchQuery: string = state.searchFilter.toLowerCase();
+
+    // Initially match with substring
+    let filteredGames: Game[] = defaultGamesArray.filter((game: Game) =>
+      game.title?.toLowerCase().includes(searchQuery)
+    );
+
+    // Fuzzy search if no substring matches
+    if (filteredGames.length < 1)
+      filteredGames = fuzzySearch(defaultGamesArray, searchQuery);
+
+    setFilteredGames(filteredGames);
   }, [defaultGames, state.searchFilter]);
 
   // Sets the filtered games
-  const setFilteredGames = (filteredGames: Games) => {
+  const setFilteredGames = (filteredGames: Game[]) => {
     dispatch({
       type: SET_FILTERED_GAMES,
       payload: filteredGames,
@@ -92,7 +110,7 @@ export const GamesProvider = ({ children }: PropsWithChildren) => {
   const getGameBySlug = (slug?: string) => {
     if (!slug) return null;
 
-    return state.filteredGames?.[slug] ?? null;
+    return defaultGames?.[slug] ?? null;
   };
 
   return (

@@ -42,6 +42,6 @@ export type Game = {
   game_provider?: GameProvider;
 };
 
-export type Games = {
+export type GamesJson = {
   [name: string]: Game;
 };
