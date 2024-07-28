@@ -63,13 +63,15 @@ const GameOverview = () => {
   const { getGameBySlug, filteredGames } = useContext(GamesContext);
 
   const [game, setGame] = useState<Game | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // On filteredGames update, set current game
-  // Could be replaced with loadingContext
+  // Could be replaced with loadingContext (currently ensure that filteredGames is not null)
   useEffect(() => {
     if (!filteredGames) return;
 
     setGame(getGameBySlug(params.gameId));
+    setIsLoading(false);
   }, [filteredGames]);
 
   // Handle back button click
@@ -78,7 +80,12 @@ const GameOverview = () => {
     navigate("/");
   };
 
-  if (!game) return <Loading />;
+  if (isLoading) return <Loading />;
+
+  if (!game) {
+    navigate("/403");
+    return;
+  }
 
   return (
     <div style={styles.root}>
