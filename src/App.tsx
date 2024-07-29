@@ -9,11 +9,11 @@ function App() {
     <GamesProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/403" element={<Unknown />} />
+          <Route path="/404" element={<Unknown />} />
           <Route path="/lobby" element={<Lobby />} />
           <Route path="/game/:gameId" element={<GameOverview />} />
           <Route path="/" element={<Navigate to="/lobby" replace />} />
-          <Route path="*" element={<Navigate to="/403" replace />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
       </BrowserRouter>
     </GamesProvider>

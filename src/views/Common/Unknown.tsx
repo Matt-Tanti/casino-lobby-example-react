@@ -9,7 +9,7 @@ const styles: Styles = {
   },
 };
 
-// Simple 403 page
+// Simple 404 page
 const Unknown = () => {
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const Unknown = () => {
   return (
     <div style={styles.container}>
       <div>
-        <h1>Error 403</h1>
+        <h1>Error 404</h1>
         <p>Page not found!</p>
         <button onClick={handleBackToLobby}>Back to lobby</button>
       </div>

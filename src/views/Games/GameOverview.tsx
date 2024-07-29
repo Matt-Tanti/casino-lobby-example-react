@@ -83,7 +83,7 @@ const GameOverview = () => {
   if (isLoading) return <Loading />;
 
   if (!game) {
-    navigate("/403");
+    navigate("/404");
     return;
   }
 
