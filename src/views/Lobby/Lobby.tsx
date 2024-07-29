@@ -56,7 +56,7 @@ const Lobby = () => {
       </div>
 
       {filteredGames ? (
-        <DivWithMedia style={styles.content}>
+        <DivWithMedia>
           {filteredGames.map((filteredGame: Game) => (
             <GameThumbnail key={filteredGame.id} game={filteredGame} />
           ))}
